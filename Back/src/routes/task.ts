@@ -17,6 +17,7 @@ export default router
         try{
             const {title,description} = req.body
             new Task(title,description,false).save()
+            res.status(200).send("Adicionado com sucesso!")
         }catch(e){
             res.status(500);
         }
