@@ -8,7 +8,7 @@ const app = express();
 
 const port = 8080;
 
-app.use(cors()); // Removi a tipagem desnecessária
+app.use(cors({origin:'*'}));
 app.use(express.json()); 
 
 connectDB()
