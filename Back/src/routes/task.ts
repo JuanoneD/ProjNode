@@ -32,10 +32,10 @@ export default router
         }
     })
 
-    .get('/:id',(req, res) => {
+    .get('/:id',async (req, res) => {
         try{
             const { id } = req.params
-            res.status(200).json(Task.findById(id));
+            res.status(200).json(await Task.findById(id));
         } catch(e){
             res.status(500)
         }
