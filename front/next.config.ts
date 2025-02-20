@@ -9,7 +9,7 @@ const nextConfig = {
         destination:"/task"
       },
       {
-        source:"/task",
+        source:"/task_register",
         destination:"/register_task"
       }
     ]

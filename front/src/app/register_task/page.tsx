@@ -24,7 +24,7 @@ export default function registerProduct() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    name: name,
+                    title: name,
                     description: description,
                 }),
             });
@@ -39,6 +39,7 @@ export default function registerProduct() {
             alert("Cadastrado com sucesso!!")
             router.push(ROUTES.task)
         } catch (err) {
+            console.log(err)
             setError(true)
         }
     };

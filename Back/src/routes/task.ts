@@ -16,8 +16,9 @@ export default router
     .post('',(req,res)=>{
         try{
             const {title,description} = req.body
-            new Task(title,description,false).save()
-            res.status(200).send("Adicionado com sucesso!")
+            let task = new Task({title:title,description:description});
+            task.save()
+            res.status(200).json({message:"Adicionado com sucesso!"});
         }catch(e){
             res.status(500);
         }
@@ -40,23 +41,22 @@ export default router
         }
     })
 
-    .put('/:id', (req, res) => {
+    .put('/:id',async (req, res) => {
         try{
             const { id } = req.params;
             const { status } = req.body;
     
-            Task.findByIdAndUpdate(id,{updateAt:Date.now,completed:status});
-            
+            await Task.findByIdAndUpdate(id,{updateAt:Date.now(),completed:status});
             res.status(200).send(`Valor atualizado!`)
         }catch(e){
             res.status(500)
         }
     })
 
-    .delete('/:id', (req: Request, res: Response) => {
+    .delete('/:id', async (req: Request, res: Response) => {
         try{
             const { id } = req.params;
-            Task.findByIdAndDelete(id)
+            await Task.findByIdAndDelete(id)
             res.status(200).send(`Pessoa com o id: ${id} foi deletada `)
         }catch(e){
             res.status(500)

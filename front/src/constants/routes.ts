@@ -1,4 +1,5 @@
 
 export enum ROUTES{
-    task = "/"
+    task = "/",
+    taskCreate = '/task_register'
 }
