@@ -1,5 +1,6 @@
 import express, { Request, Response, Router } from 'express';
 import Task from '../model/Tarefa.ts';
+import TaskController from '../controllers/taskController.ts';
 
 interface ITask{
     title:string,
@@ -15,49 +16,39 @@ export default router
 
     .post('',(req,res)=>{
         try{
-            const {title,description} = req.body
-            let task = new Task({title:title,description:description});
-            task.save()
-            res.status(200).json({message:"Adicionado com sucesso!"});
+            TaskController.postTask(req,res);
         }catch(e){
             res.status(500);
         }
     })
 
-    .get('', async (req, res) => {
+    .get('', (req, res) => {
         try{
-            res.status(200).json(await Task.find());
+            TaskController.getTask(req,res);
         }catch(e){
             res.status(500);
         }
     })
 
-    .get('/:id',async (req, res) => {
+    .get('/:id',(req, res) => {
         try{
-            const { id } = req.params
-            res.status(200).json(await Task.findById(id));
+            TaskController.getTaskById(req,res)
         } catch(e){
             res.status(500)
         }
     })
 
-    .put('/:id',async (req, res) => {
+    .put('/:id', (req, res) => {
         try{
-            const { id } = req.params;
-            const { status } = req.body;
-    
-            await Task.findByIdAndUpdate(id,{updateAt:Date.now(),completed:status});
-            res.status(200).send(`Valor atualizado!`)
+            TaskController.updateStatus(req,res);
         }catch(e){
             res.status(500)
         }
     })
 
-    .delete('/:id', async (req: Request, res: Response) => {
+    .delete('/:id',(req, res) => {
         try{
-            const { id } = req.params;
-            await Task.findByIdAndDelete(id)
-            res.status(200).send(`Pessoa com o id: ${id} foi deletada `)
+            TaskController.deleteStatus(req,res)
         }catch(e){
             res.status(500)
         }
