@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+model Client{
+  id Int @id @default(autoincrement())
+  name String
+  phone String @unique
+  createdAt DateTime @default(now())
+  orders ServiceOrder[]
+}
+
+model Vehicles{
+  id Int @id @default(autoincrement())
+  marca String
+  modelo String
+  ano Int
+  servicesOrders ServiceOrder[]
+}
+
+model Services{
+  id Int @id @default(autoincrement())
+  name String
+  price Float
+  description String
+  ordersInService OrdersInServices[]
+}
+
+model OrdersInServices{
+  id Int @id @default(autoincrement())
+  service Services @relation(fields: [serviceId],references: [id])
+  serviceId Int @unique
+  serviceOrder ServiceOrder @relation(fields: [orderId],references: [id])
+  orderId Int @unique
+}
+
+model ServiceOrder{
+  id Int @id @default(autoincrement())
+  client Client @relation(fields: [clientId],references: [id])
+  clientId Int @unique
+  vehicle Vehicles @relation(fields: [vehicleId],references: [id])
+  vehicleId Int @unique
+  InData DateTime @default(now())
+  OutData DateTime
+  status Boolean
+  observation String
+  ordersInService OrdersInServices[]
+}
