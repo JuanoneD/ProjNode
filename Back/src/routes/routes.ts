@@ -4,6 +4,7 @@ import person from './person.js'
 import user from './user.ts';
 import task from './task.ts';
 import auth from './auth.ts';
+import pokemon from './pokemon.ts';
 
 export default function (app: Express) {
     app
@@ -12,4 +13,5 @@ export default function (app: Express) {
         .use('/usuarios',user)
         .use('/tasks',task)
         .use('/auth',auth)
+        .use('/',pokemon)
 }
