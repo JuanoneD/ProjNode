@@ -14,23 +14,22 @@ export default class PokemonService{
         if(pok!==null)
             return {response:false,message:"Pokemon ja Capturado!"}
 
-        await axios.get<ResApiDto>(`https://pokeapi.co/api/v2/pokemon-species/${data.id}`)
-            .then(async res=>{
-                console.log(res);
+        let res = await axios.get<ResApiDto>(`https://pokeapi.co/api/v2/pokemon-species/${data.id}`)
 
-                const capRate = res.data.capture_rate;
+        console.log(res);
 
-                let random:number = Math.random()*100;
+        const capRate = res.data.capture_rate;
 
-                if(random>capRate){
-                    return {response:false,message:"Falha na captura do Pokemon!"};
-                }
+        let random:number = Math.random()*100;
 
-                await prisma.pokemons.create({data:{id:data.id}})
+        if(random>capRate%100){
+            return {response:false,message:"Falha na captura do Pokemon!"};
+        }
 
-                return {response:true,message:"Pokemon  Capturado!"}
-            })
-            return {response:true,message:"Pokemon  Capturado!"}
+        await prisma.pokemons.create({data:{id:data.id}})
+
+        return {response:true,message:"Pokemon  Capturado!"}
+
     }
 
     static async team(){
