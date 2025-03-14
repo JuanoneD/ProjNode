@@ -16,6 +16,7 @@ interface poke{
 export default function registerProduct() {
     const [name, setName] = useState<string>("")
     const [error, setError] = useState<boolean>(false)
+    const [message,setMessage] = useState<string>('')
     const [pokemon,setPokemon] = useState<poke|undefined>()
     const router = useRouter()
 
@@ -37,7 +38,8 @@ export default function registerProduct() {
             let a = await response.json()
             console.log(a)
             setError(false)
-            alert(a.message)
+            setMessage(a.message)
+            //alert(a.message)
         } catch (err) {
             console.log(err)
             setError(true)
@@ -55,8 +57,12 @@ export default function registerProduct() {
             </div>
             <div className="flex justify-center">
                 {pokemon&&
-                    <div className="p-1 w-[300px] flex justify-center">
+                <>
+                <div className="p-1 w-[300px] flex justify-center">
                     <div  className=" shadow-lg m-2 rounded-[20px]">
+                        <div className="flex justify-center font-bold">
+                            <h1>{message}</h1>
+                        </div>
                         <div>
                             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokemon.id}.png`} alt="" width={300} height={300} className="object-cover  w-[300px] h-[300px] rounded-t-[15px]" priority={true}/>
                         </div>
@@ -77,6 +83,7 @@ export default function registerProduct() {
                         </div>
                     </div>
                 </div>
+                </>
                 }
             </div>
         </>
