@@ -47,7 +47,10 @@ export default function registerProduct() {
     };
 
     return (
-        <>
+        <>  
+            <div className="flex flex-row-reverse space-x-4 space-x-reverse ...">
+                <button className="bg-black mt-2 rounded-[10px] text-white p-3 mr-24 mt-8" onClick={()=>{router.push(ROUTES.pokemonView)}}>Pokemons Capturados</button>
+            </div>
             <div className=" flex justify-center aling-center mt-6 mb-6">
                 <div className="flex flex-col p-6 rounded-md w-4/5 md:w-1/3">
                     <label htmlFor="Name" className="text-white text-medium m-1">Digite o id do pokemon que deseja capturar:</label>
@@ -64,7 +67,7 @@ export default function registerProduct() {
                             <h1>{message}</h1>
                         </div>
                         <div>
-                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokemon.id}.png`} alt="" width={300} height={300} className="object-cover  w-[300px] h-[300px] rounded-t-[15px]" priority={true}/>
+                            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} alt="" width={300} height={300} className="object-cover  w-[300px] h-[300px] rounded-t-[15px]"/>
                         </div>
                         <div className="p-1">
                             <div className="flex justify-center font-bold">
